@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--    <link rel="stylesheet" th:href="../static/style/login.css"/>-->
+    <title>Login Page</title>
+</head>
+<body>
+<div class="container">
+    <h1>Login</h1>
+    <form th:action="@{/login}" method="post">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div th:if="${param.error}">
+            <p>Invalid username or password</p>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="text" id="password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+</div>
+</body>
+</html>

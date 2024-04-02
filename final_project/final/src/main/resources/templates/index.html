@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/index.css}">
+    <script th:href="@{/scripts/index.js}"></script>
+    <title>TaskBuster - Manage Your Life</title>
+</head>
+<body>
+<header>
+    <div style="">
+        <a href="/login">
+            <button>Login</button>
+        </a>
+    </div>
+    <h1>TaskBuster</h1>
+    <p>The ultimate tool to streamline your productivity.</p>
+    <a href="/register">
+        <button class="signup-button">Get Started for Free</button>
+    </a>
+</header>
+
+<section class="features">
+    <h2>Key Features</h2>
+    <div class="feature-row">
+        <div class="feature">
+            <img src="icon-task.svg" alt="Task Icon">
+            <h3>Easy Task Creation</h3>
+        </div>
+        <div class="feature">
+            <img src="icon-calendar.svg" alt="Calendar Icon">
+            <h3>Deadlines & Reminders</h3>
+        </div>
+        <div class="feature">
+            <img src="icon-collaboration.svg" alt="Collaboration Icon">
+            <h3>Collaboration Tools</h3>
+        </div>
+    </div>
+</section>
+
+<section class="testimonials">
+    <h2>What Our Users Say</h2>
+</section>
+
+<footer>
+    <p>&copy; 2024 TaskBuster</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | My Task App</title>
+    <link href="../static/styles/style.css" th:href="@{/styles/style.css}" rel="stylesheet">
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/home}">Home</a></li>
+            <li><a th:href="@{/tasks}">My Tasks</a></li>
+            <li><a th:href="@{/profile}">Profile</a></li>
+            <li><a th:href="@{/logout}">Logout</a></li>
+            <li sec:authorize="hasAuthority('ROLE_ADMIN')"><a th:href="@{/users}">Users</a></li>
+        </ul>
+    </nav>
+    <h1>Welcome Back, <p th:text="${user.name}"></p></h1>
+</header>
+
+<section>
+    <h2>Your Tasks for Today</h2>
+    <ul>
+        <!-- <li th:each="task : ${tasks}" th:text="${task.title}"></li> -->
+        <!-- Uncomment above line when integrating with Spring and Thymeleaf back end -->
+    </ul>
+</section>
+
+<section>
+    <h2>Upcoming Tasks</h2>
+    <ul>
+        <!-- <li th:each="task : ${upcomingTasks}" th:text="${task.title}"></li> -->
+        <!-- Uncomment above line when integrating with Spring and Thymeleaf back end -->
+    </ul>
+</section>
+
+<footer>
+    <p>My Task App &copy; 2023</p>
+</footer>
+</body>
+</html>

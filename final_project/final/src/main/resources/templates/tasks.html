@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Tasks</title>
+    <link rel="stylesheet" th:href="@{../static/css/tasks.css}" href="../static/css/tasks.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F2F2F2;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        header {
+            background: #333;
+            color: #ffffff;
+            padding: 15px 10px;
+            text-align: center;
+        }
+
+        .new-button-container {
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            width: 100%;
+        }
+
+        .new-button {
+            margin: 10px;
+        }
+
+
+        .title {
+            color: #000000;
+            text-align: center;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .main-nav li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        .main-nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 15px 32px;
+        }
+
+        .main-nav a:hover {
+            background-color: #000000;
+        }
+
+        .active {
+            background-color: #000000;
+        }
+
+        .logout-button {
+            background-color: transparent;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .logout-button:hover {
+            background-color: #000000;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav class="main-nav">
+        <ul>
+            <li><a th:href="@{/home}">Home</a></li>
+            <li><a th:href="@{/tasks}" class="active">My Tasks</a></li>
+            <li><a th:href="@{/profile}">Profile</a></li>
+            <li><a sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/users}">Users</a></li>
+        </ul>
+        <ul>
+            <li>
+                <form th:action="@{/logout}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <button class="logout-button" type="submit">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+</header>
+<h1 class="title">Your Tasks</h1>
+<div class="new-button-container">
+    <a th:href="@{/task/new}">
+        <button class="new-button">Create new task</button>
+    </a>
+</div>
+<table th:if="${tasks.size() > 0}">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Due Date</th>
+        <th>Complete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task : ${tasks}">
+        <td><a th:href="@{/task/{id}(id=${task.getId()})}" th:text="${task.getTitle()}"></a></td>
+        <td th:text="${task.getDescription()}">-</td>
+        <td th:text="${task.getDueDate()}">-</td>
+        <td th:text="${task.isCompleted() ? 'Completed' : 'Incomplete'}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:if="${tasks.size() == 0}">
+    <h2 class="title">Take it easy! You have no tasks!</h2>
+</div>
+</body>
+</html>

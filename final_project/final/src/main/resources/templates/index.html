@@ -3,9 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" th:href="@{/css/index.css}">
     <script th:href="@{/scripts/index.js}"></script>
     <title>TaskBuster - Manage Your Life</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header {
+            margin: 50px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 20px;
+            cursor: pointer;
+        }
+
+        .signup-button {
+            background-color: #4CAF50;
+        }
+
+        .feature-row {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .feature {
+            width: 30%;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -16,7 +50,7 @@
     </div>
     <h1>TaskBuster</h1>
     <p>The ultimate tool to streamline your productivity.</p>
-    <a href="/register">
+    <a href="/signup">
         <button class="signup-button">Get Started for Free</button>
     </a>
 </header>
@@ -37,10 +71,6 @@
             <h3>Collaboration Tools</h3>
         </div>
     </div>
-</section>
-
-<section class="testimonials">
-    <h2>What Our Users Say</h2>
 </section>
 
 <footer>

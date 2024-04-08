@@ -1,43 +1,217 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
 <head>
     <meta charset="UTF-8">
     <title>Dashboard | My Task App</title>
-    <link href="../static/styles/style.css" th:href="@{/styles/style.css}" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F2F2F2; /* Existing light background */
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        header {
+            background: #333;
+            color: #ffffff;
+            padding: 15px 10px;
+            text-align: center;
+        }
+
+        section {
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        footer {
+            background: #333;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .task {
+            background-color: #e0ecf4; /* Softer background color */
+            margin: 10px 0;
+            padding: 15px; /* Increased padding */
+            border-radius: 5px;
+            color: #333333; /* Darker text for contrast */
+        }
+
+        .task h3 {
+            margin: 0;
+            font-weight: bold; /* Stronger h3 heading */
+        }
+
+
+        .task p {
+            margin: 5px 0;
+        }
+
+        .task.completed {
+            background-color: #ddd; /* Light gray for done tasks */
+        }
+
+        .task button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 15px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+        .task button:hover {
+            background-color: #0056b3;
+        }
+
+        .tasks_section {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        section {
+            width: 30%;
+        }
+
+        .tasks-container {
+            background-color: #d4d4d4;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .tasks-container-header {
+            /*border: #333333 1px solid;*/
+        }
+
+        .main-nav {
+            display: flex; /* Activate Flexbox layout */
+            justify-content: space-between; /* Distribute space between elements */
+            align-items: center; /* Vertically center the items */
+            color: #fff;
+        }
+
+        .main-nav ul {
+            list-style: none; /* Remove default bullet points */
+            margin: 0;
+            padding: 0;
+        }
+
+        .main-nav li {
+            display: inline; /* Place links side-by-side */
+            margin: 0 10px; /* Add spacing between links */
+        }
+
+        .main-nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 15px 32px;
+        }
+
+        .main-nav a:hover {
+            background-color: #000000;
+        }
+
+        .active {
+            background-color: #000000;
+        }
+
+        .logout-button {
+            background-color: transparent;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .logout-button:hover {
+            background-color: #000000;
+            cursor: pointer;
+        }
+
+        .welcome-text {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <header>
-    <nav>
+    <nav class="main-nav">
         <ul>
-            <li><a th:href="@{/home}">Home</a></li>
+            <li><a th:href="@{/home}" class="active">Home</a></li>
             <li><a th:href="@{/tasks}">My Tasks</a></li>
             <li><a th:href="@{/profile}">Profile</a></li>
-            <li><a th:href="@{/logout}">Logout</a></li>
-            <li sec:authorize="hasAuthority('ROLE_ADMIN')"><a th:href="@{/users}">Users</a></li>
+            <li><a sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/users}">Users</a></li>
+        </ul>
+        <ul>
+            <li>
+                <form th:action="@{/logout}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <button class="logout-button" type="submit">Logout</button>
+                </form>
+            </li>
         </ul>
     </nav>
-    <h1>Welcome Back, <p th:text="${user.name}"></p></h1>
 </header>
+<h1 class="welcome-text" th:text="${'Welcome Back, ' + user.getUsername()} + '!'">Welcome Back!</h1>
+<div class="tasks_section">
+    <section class="tasks-container">
+        <h2 class="tasks-container-header">Your Tasks for Today</h2>
+        <div th:each="task : ${tasks_today}" class="task">
+            <h3 th:text="${task.getTitle()}"></h3>
+            <p th:text="${task.getDescription()}"></p>
+            <p th:text="${task.getDueDate()}"></p>
+            <p th:text="${task.isCompleted()}"></p>
+            <a th:href="@{'task/' + ${task.id}}">
+                <button class="task button">Edit Details</button>
+            </a>
+        </div>
+    </section>
 
-<section>
-    <h2>Your Tasks for Today</h2>
-    <ul>
-        <!-- <li th:each="task : ${tasks}" th:text="${task.title}"></li> -->
-        <!-- Uncomment above line when integrating with Spring and Thymeleaf back end -->
-    </ul>
-</section>
+    <section class="tasks-container">
+        <h2 class="tasks-container-header">Upcoming Tasks</h2>
+        <div th:each="task : ${tasks_upcoming}" class="task">
+            <h3 th:text="${task.getTitle()}"></h3>
+            <p th:text="${task.getDescription()}"></p>
+            <p th:text="${task.getDueDate()}"></p>
+            <p th:text="${task.isCompleted()}"></p>
+            <a th:href="@{'task/' + ${task.id}}">
+                <button class="task button">Edit Details</button>
+            </a>
+        </div>
+    </section>
 
-<section>
-    <h2>Upcoming Tasks</h2>
-    <ul>
-        <!-- <li th:each="task : ${upcomingTasks}" th:text="${task.title}"></li> -->
-        <!-- Uncomment above line when integrating with Spring and Thymeleaf back end -->
-    </ul>
-</section>
-
+    <section class="tasks-container">
+        <h2 class="tasks-container-header">Completed Tasks</h2>
+        <div th:each="task : ${tasks_completed}" class="task">
+            <h3 th:text="${task.getTitle()}"></h3>
+            <p th:text="${task.getDescription()}"></p>
+            <p th:text="${task.getDueDate()}"></p>
+            <p th:text="${task.isCompleted()}"></p>
+            <a th:href="@{'task/' + ${task.id}}">
+                <button class="task button">Edit Details</button>
+            </a>
+        </div>
+    </section>
+</div>
 <footer>
-    <p>My Task App &copy; 2023</p>
+    <p>TaskBuster &copy; 2024</p>
 </footer>
 </body>
 </html>

@@ -2,7 +2,7 @@ package org.example.eric.controller.signup;
 
 import jakarta.validation.Valid;
 import org.example.eric.controller.signup.dto.SignupFormDTO;
-import org.example.eric.service.RegistrationService;
+import org.example.eric.service.SignupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class SignupController {
 
     @Autowired
-    private RegistrationService registrationService;
+    private SignupService signupService;
 
-    @GetMapping("/register")
-    public String renderRegisterPage(Model model) {
+    @GetMapping("/signup")
+    public String renderSignupPage(Model model) {
         model.addAttribute("user", new SignupFormDTO());
         return "signup_form";
     }
@@ -28,8 +28,8 @@ public class SignupController {
         return "signup_success";
     }
 
-    @PostMapping("/register")
-    public String registerSubmit(@Valid @ModelAttribute SignupFormDTO dto, BindingResult result, Model model) {
+    @PostMapping("/signup")
+    public String signupSubmit(@Valid @ModelAttribute SignupFormDTO dto, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
             System.out.println(result.getAllErrors());
@@ -37,12 +37,12 @@ public class SignupController {
             return "signup_form";
         }
 
-        boolean ans = registrationService.createUser(dto);
+        boolean ans = signupService.createUser(dto);
 
         if (!ans) {
             return "error";
         }
 
-        return "redirect:/";
+        return "redirect:/signup_success";
     }
 }

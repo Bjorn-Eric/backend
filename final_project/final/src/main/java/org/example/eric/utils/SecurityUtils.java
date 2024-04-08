@@ -8,12 +8,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class SecurityUtils {
 
     // Get authenticated user instance
-    public static Authentication getAuthenticatedUser() {
+    public static UserDetails getAuthenticatedUser() {
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();
 
         if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
-            return (authentication);
+            return (UserDetails) authentication.getPrincipal();
         }
 
         return null;

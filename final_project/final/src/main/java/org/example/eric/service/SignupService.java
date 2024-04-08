@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 
 @Service
-public class RegistrationService {
+public class SignupService {
 
     @Autowired
     private UserRepository userRepository;
@@ -25,7 +25,7 @@ public class RegistrationService {
                 User user = new User(
                         dto.getUsername(),
                         passwordEncoder.encode(dto.getPassword()),
-                        User.Role.USER
+                        User.Role.ROLE_USER
                 );
                 userRepository.save(user);
                 System.out.println("User: " + user.getUsername() + " created successfully!");
@@ -39,4 +39,5 @@ public class RegistrationService {
             return false;
         }
     }
+
 }

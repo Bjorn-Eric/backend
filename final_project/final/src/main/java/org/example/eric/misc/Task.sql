@@ -3,7 +3,7 @@ CREATE TABLE task (
                       title VARCHAR(255),
                       description TEXT,
                       completed BOOLEAN,
-                      dueDate DATETIME,
+                      due_date DATETIME,
                       user_id BIGINT,
                       PRIMARY KEY (id),
                       FOREIGN KEY (user_id) REFERENCES USER(id)

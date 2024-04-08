@@ -5,6 +5,9 @@
     <title>Error</title>
 </head>
 <body>
-<h1>Something went wrong and we don't know what happened..</h1>
+<div th:text="${errorMessage}"></div>
+<div th:if="${errorMessage == null or errorMessage.isEmpty()}">
+    Something went wrong and we don't know what happened..
+</div>
 </body>
 </html>

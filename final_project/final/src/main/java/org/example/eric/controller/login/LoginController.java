@@ -1,7 +1,7 @@
 package org.example.eric.controller.login;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.example.eric.model.User;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class LoginController {
 
     @GetMapping("/login")
-    public String renderLoginPage() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    public String renderLoginPage(@AuthenticationPrincipal User user) {
 
-        if (auth != null && !auth.getName().equals("anonymousUser")) {
+        if (user != null && user.getActive()) {
             return "redirect:/home";
         }
 

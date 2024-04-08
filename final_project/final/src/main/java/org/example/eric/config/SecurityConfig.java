@@ -15,7 +15,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(request -> request
-                .requestMatchers("/", "/index", "/register").permitAll()
+                .requestMatchers("/", "/index", "/signup").permitAll()
                 .requestMatchers("/users").hasRole("ADMIN")
                 .anyRequest().authenticated());
         http.formLogin(form -> form.loginPage("/login").permitAll().defaultSuccessUrl("/home", true));

@@ -1,6 +1,7 @@
 package org.example.eric.controller.task;
 
 import jakarta.validation.Valid;
+import org.apache.juli.logging.Log;
 import org.example.eric.model.Task;
 import org.example.eric.model.User;
 import org.example.eric.service.TaskService;
@@ -40,23 +41,24 @@ public class TaskController {
     @GetMapping("/task/{id}")
     public String renderTaskDetailsPage(Model model, @AuthenticationPrincipal User user, @PathVariable Long id) throws AccessDeniedException {
         Task task = taskService.findByTaskId(id, user.getId());
+        System.out.println("DEBUG_TASK_DETAILS: " + task.toString());
         model.addAttribute("task", task);
         return "task_details";
     }
 
     @PostMapping("/task/{id}")
-    public String updateTaskWithId(@Valid Task task, @AuthenticationPrincipal User user, BindingResult bindingResult, Model model) throws AccessDeniedException {
+    public String updateTaskWithId(@Valid Task task, @AuthenticationPrincipal User user, BindingResult bindingResult) throws AccessDeniedException {
 
         if (bindingResult.hasErrors()) {
             return "task_details";
         }
 
+        System.out.println("DEBUG_TASK_UPDATE: " + task.toString());
+
         task.setUser(user);
-        Task updatedTask = taskService.updateTaskById(task, user);
+        taskService.updateTaskById(task, user);
 
-        model.addAttribute("task", updatedTask);
-
-        return "task_details";
+        return "redirect:/tasks";
 
     }
 

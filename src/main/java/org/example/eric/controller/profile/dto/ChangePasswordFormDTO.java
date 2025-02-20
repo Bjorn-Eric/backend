@@ -9,11 +9,11 @@ public class ChangePasswordFormDTO {
     private String oldPassword;
 
     @NotBlank
-    @Size(min = 10)
+    @Size(min = 5, message = "Password must be at least 5 characters long")
     private String newPassword;
 
     @NotBlank
-    @Size(min = 10)
+    @Size(min = 5, message = "Password must be at least 5 characters long")
     private String newRetypedPassword;
 
     public ChangePasswordFormDTO() {

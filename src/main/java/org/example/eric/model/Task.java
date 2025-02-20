@@ -65,6 +65,7 @@ public class Task {
         this.completed = completed;
     }
 
+    @Column(name = "due_date")
     public LocalDate getDueDate() {
         return dueDate;
     }
@@ -83,5 +84,16 @@ public class Task {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", completed=" + completed +
+                ", dueDate=" + dueDate +
+                ", user=" + user +
+                '}';
     }
 }

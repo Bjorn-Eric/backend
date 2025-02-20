@@ -166,7 +166,7 @@
                 </tr>
                 <tr>
                     <td>Due Date:</td>
-                    <td><input type="date" th:field="*{dueDate}"/></td>
+                    <td><input type="date" th:filed="*{description}"/></td>
                 </tr>
                 <tr>
                     <td>Completed:</td>
@@ -180,7 +180,7 @@
         <input type="hidden" name="taskId" th:value="${task.id}"/>
     </form>
     <div class="button-container">
-        <button onClick="return document.getElementById('main-form').submit();">Save</button>
+        <button onClick="submitForm()">Save</button>
         <button onclick="confirmDelete()">Delete Task</button>
     </div>
 </div>
@@ -190,6 +190,10 @@
         if (confirm('Are you sure you want to delete this task?')) {
             document.getElementById("deleteForm").submit();
         }
+    }
+
+    function submitForm() {
+        document.getElementById("main-form").submit();
     }
 </script>
 </body>

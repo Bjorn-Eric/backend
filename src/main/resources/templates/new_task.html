@@ -53,21 +53,21 @@
         }
 
         .main-nav {
-            display: flex; /* Activate Flexbox layout */
-            justify-content: space-between; /* Distribute space between elements */
-            align-items: center; /* Vertically center the items */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             color: #fff;
         }
 
         .main-nav ul {
-            list-style: none; /* Remove default bullet points */
+            list-style: none;
             margin: 0;
             padding: 0;
         }
 
         .main-nav li {
-            display: inline; /* Place links side-by-side */
-            margin: 0 10px; /* Add spacing between links */
+            display: inline;
+            margin: 0 10px;
         }
 
         .main-nav a {
@@ -111,8 +111,8 @@
 <header>
     <nav class="main-nav">
         <ul>
-            <li><a th:href="@{/home}" class="active">Home</a></li>
-            <li><a th:href="@{/tasks}">My Tasks</a></li>
+            <li><a th:href="@{/home}">Home</a></li>
+            <li><a th:href="@{/tasks}" class="active">My Tasks</a></li>
             <li><a th:href="@{/profile}">Profile</a></li>
             <li><a sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/users}">Users</a></li>
         </ul>

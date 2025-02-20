@@ -17,6 +17,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(request -> request
                 .requestMatchers("/", "/index", "/signup").permitAll()
                 .requestMatchers("/users").hasRole("ADMIN")
+                .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                 .anyRequest().authenticated());
         http.formLogin(form -> form.loginPage("/login").permitAll().defaultSuccessUrl("/home", true));
         http.logout(logoutConfigurer -> logoutConfigurer

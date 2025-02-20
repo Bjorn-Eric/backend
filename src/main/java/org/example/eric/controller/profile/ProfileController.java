@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -34,7 +35,7 @@ public class ProfileController {
     }
 
     @PostMapping("/profile")
-    public String modifyUserPassword(@Valid ChangePasswordFormDTO passwordFormDTO, BindingResult bindingResult, @AuthenticationPrincipal User user, Model model) {
+    public String modifyUserPassword(@Valid @ModelAttribute("passwordForm") ChangePasswordFormDTO passwordFormDTO, BindingResult bindingResult, @AuthenticationPrincipal User user, Model model) {
 
         if (bindingResult.hasErrors()) {
             System.out.println("Binding errors: " + bindingResult.getAllErrors());
@@ -55,24 +56,6 @@ public class ProfileController {
         userDetailsService.changePassword(user, passwordFormDTO.getNewPassword());
         model.addAttribute("user", user);
         model.addAttribute("successMessage", "Password updated successfully!");
-        return "profile";
-    }
-
-    @GetMapping("profile/{id}")
-    public String renderProfilePageBasedOnId(@AuthenticationPrincipal User user, @PathVariable Long id, Model model) {
-        try {
-
-            if (Objects.equals(user.getId(), id)) {
-                return "redirect:/profile";
-            }
-
-            User userDetails = userDetailsService.getUserDetailsById(user, id);
-            model.addAttribute("user", userDetails);
-        } catch (AccessDeniedException e) {
-            e.printStackTrace();
-            return "redirect:/error";
-        }
-
         return "profile";
     }
 }

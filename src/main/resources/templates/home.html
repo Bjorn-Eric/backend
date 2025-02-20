@@ -177,8 +177,8 @@
             <h3 th:text="${task.getTitle()}"></h3>
             <p th:text="${task.getDescription()}"></p>
             <p th:text="${task.getDueDate()}"></p>
-            <p th:text="${task.isCompleted()}"></p>
-            <a th:href="@{'task/' + ${task.id}}">
+            <p th:text="${task.isCompleted() ? 'Completed' : 'Incomplete'}"></p>
+            <a th:href="@{'/task/' + ${task.id}}">
                 <button class="task button">Edit Details</button>
             </a>
         </div>
@@ -190,8 +190,8 @@
             <h3 th:text="${task.getTitle()}"></h3>
             <p th:text="${task.getDescription()}"></p>
             <p th:text="${task.getDueDate()}"></p>
-            <p th:text="${task.isCompleted()}"></p>
-            <a th:href="@{'task/' + ${task.id}}">
+            <p th:text="${task.isCompleted() ? 'Completed' : 'Incomplete'}"></p>
+            <a th:href="@{'/task/' + ${task.id}}">
                 <button class="task button">Edit Details</button>
             </a>
         </div>
@@ -203,8 +203,8 @@
             <h3 th:text="${task.getTitle()}"></h3>
             <p th:text="${task.getDescription()}"></p>
             <p th:text="${task.getDueDate()}"></p>
-            <p th:text="${task.isCompleted()}"></p>
-            <a th:href="@{'task/' + ${task.id}}">
+            <p th:text="${task.isCompleted() ? 'Completed' : 'Incomplete'}"></p>
+            <a th:href="@{'/task/' + ${task.id}}">
                 <button class="task button">Edit Details</button>
             </a>
         </div>

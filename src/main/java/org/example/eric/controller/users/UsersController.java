@@ -29,6 +29,15 @@ public class UsersController {
         return "redirect:/home";
     }
 
+    @GetMapping("/users/add")
+    public String addUserPage(@AuthenticationPrincipal User user, Model model) {
+        if (user.getRole() == User.Role.ROLE_ADMIN) {
+            return "add_user";
+        }
+
+        return "redirect:/home";
+    }
+
     @PostMapping("/users/delete")
     public String deleteUser(@AuthenticationPrincipal User user, Model model, @RequestParam Long user_id) {
         try {

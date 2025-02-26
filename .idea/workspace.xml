@@ -4,27 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a29f667-300a-49b8-9ae7-3d4108f3ac03" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/add_user.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+    <list default="true" id="6a29f667-300a-49b8-9ae7-3d4108f3ac03" name="Changes" comment="some changes">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/dto/TaskDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/dto/UserDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/profile/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/profile/ProfileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/profile/dto/ChangePasswordFormDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/profile/dto/ChangePasswordFormDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/task/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/task/TaskController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/users/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/users/UsersController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/model/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/model/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/access_denied.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/access_denied.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/service/TaskService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/service/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/service/UserDetailsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/add_user.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/add_user.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/new_task.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/new_task.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/task_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/task_details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/tasks/index.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/users.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/users.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,21 +22,29 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Class" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Bjorn-Eric"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Bjorn-Eric&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Bjorn-Eric/backend.git",
-    "accountId": "de7f52d3-892f-4baf-bf41-b8e4763ae3c4"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Bjorn-Eric/backend.git&quot;,
+    &quot;accountId&quot;: &quot;de7f52d3-892f-4baf-bf41-b8e4763ae3c4&quot;
   }
-}]]></component>
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -112,11 +110,38 @@
       <option name="presentableId" value="Default" />
       <updated>1705693973700</updated>
       <workItem from="1705693974784" duration="81000" />
-      <workItem from="1740083707247" duration="1987000" />
+      <workItem from="1740083707247" duration="2055000" />
+      <workItem from="1740315280478" duration="2375000" />
+      <workItem from="1740470288251" duration="17000" />
+      <workItem from="1740509236596" duration="6237000" />
     </task>
+    <task id="LOCAL-00001" summary="some changes">
+      <option name="closed" value="true" />
+      <created>1740085751467</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1740085751467</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="some changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="some changes" />
   </component>
 </project>

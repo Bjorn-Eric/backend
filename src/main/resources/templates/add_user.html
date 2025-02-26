@@ -1,56 +1,55 @@
 <!DOCTYPE html>
-<html lnag="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Add user</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
         .title {
             text-align: center;
         }
 
-        .user-table {
-            width: 80%;
-            margin: 20px auto;
-            border-collapse: collapse;
-            font-family: Arial, sans-serif;
+        #user-form {
+            background-color: #fff;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
         }
 
-        .user-table th, .user-table td {
+        input[type='text'], input[type='date'] {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 5px;
+            border-radius: 5px;
             border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
         }
 
-        .user-table th {
-            background-color: #f0f0f0;
-            font-weight: bold;
+        p {
+            margin-bottom: 15px;
         }
 
-        .user-table tr:nth-child(even) {
-            background-color: #f8f8f8;
-        }
-
-        .user-table a {
-            color: #007BFF;
-            text-decoration: none;
-        }
-
-        .user-table a:hover {
-            text-decoration: underline;
-        }
-
-        .action-button {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
-            text-decoration: none;
+        input[type='submit'] {
+            background: #45a049;
+            color: #fff;
+            border: 0;
+            padding: 10px 15px;
             cursor: pointer;
+            border-radius: 5px;
         }
 
-        .action-button:hover {
-            background-color: #0056b3;
+        input[type='submit']:hover {
+            background: #357a38;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
         }
 
         .main-nav {
@@ -77,11 +76,7 @@
             padding: 15px 32px;
         }
 
-        .main-nav a:hover {
-            background-color: #000000;
-        }
-
-        .active {
+        .main-nav a:hover, .active {
             background-color: #000000;
         }
 
@@ -98,15 +93,6 @@
         .logout-button:hover {
             background-color: #000000;
             cursor: pointer;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #F2F2F2;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            font-size: 16px;
         }
 
         header {
@@ -136,8 +122,23 @@
         </ul>
     </nav>
 </header>
-    <div>
+<h1 class="title">Add New User</h1>
+<form id="user-form" action="#" th:action="@{/users/add}" th:object="${user}" method="post">
 
-    </div>
+    <p>User Name: <input type="text" th:field="*{username}" required/>
+    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error">Username error</p>
+
+    <p>Password: <input type="text" th:field="*{password}"/></p>
+    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error">Password Error</p>
+
+    <p>Retype Password: <input type="text" th:field="*{rePassword}"/></p>
+    <p th:if="${#fields.hasErrors('rePassword')}" th:errors="*{rePassword}" class="error">Password Error</p>
+
+<!--    <p>Task Due Date: <input type="date" th:field="*{role}"/></p>-->
+<!--    <p th:if="${#fields.hasErrors('dueDate')}" th:errors="*{dueDate}" class="error">Due Date Error</p>-->
+
+<!--    <p>Completed: <input type="checkbox" th:field="*{completed}"/></p>-->
+    <p><input type="submit" value="Submit"/></p>
+</form>
 </body>
 </html>

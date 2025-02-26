@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.example.eric.model.User;
 import org.example.eric.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -48,49 +49,33 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Transactional
-    public User getUserDetailsById(User user, Long user_id) throws AccessDeniedException {
-        if (user.getRole() == User.Role.ROLE_ADMIN) {
-            return userRepository.findById(user_id).orElse(null);
-        } else {
-            System.out.println("Unauthorised attempt by id: " + user.getId() + " name: " + user.getUsername());
-            throw new AccessDeniedException("You don't have access to this page!");
-        }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public User getUserDetailsById(Long user_id) throws AccessDeniedException {
+        return userRepository.findById(user_id).orElse(null);
     }
 
     @Transactional
-    public void deleteUserById(User user, Long userId) throws AccessDeniedException {
-        if (user.getRole() == User.Role.ROLE_ADMIN) {
-            userRepository.deleteById(userId);
-        } else {
-            System.out.println("Unauthorised attempt by id: " + user.getId() + " name: " + user.getUsername());
-            throw new AccessDeniedException("You don't have access!");
-        }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void deleteUserById(Long userId) throws AccessDeniedException {
+        userRepository.deleteById(userId);
     }
 
     @Transactional
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public int deactivateUserById(User user, Long userId) throws AccessDeniedException {
-        if (user.getRole() == User.Role.ROLE_ADMIN) {
-            int ans = userRepository.deactivateById(userId);
+        int ans = userRepository.deactivateById(userId);
 
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (authentication != null && authentication.getName().equals(user.getUsername())) {
-                SecurityContextHolder.clearContext();
-            }
-
-            return ans;
-        } else {
-            System.out.println("Unauthorised attempt by id: " + user.getId() + " name: " + user.getUsername());
-            throw new AccessDeniedException("You don't have access!");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getName().equals(user.getUsername())) {
+            SecurityContextHolder.clearContext();
         }
+
+        return ans;
     }
 
     @Transactional
-    public int activateUserById(User user, Long userId) throws AccessDeniedException {
-        if (user.getRole() == User.Role.ROLE_ADMIN) {
-            return userRepository.activateById(userId);
-        } else {
-            System.out.println("Unauthorised attempt by id: " + user.getId() + " name: " + user.getUsername());
-            throw new AccessDeniedException("You don't have access!");
-        }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public int activateUserById(Long userId) throws AccessDeniedException {
+        return userRepository.activateById(userId);
     }
 }

@@ -1,5 +1,6 @@
 package org.example.eric.service;
 
+import org.example.eric.dto.TaskDTO;
 import org.example.eric.model.Task;
 import org.example.eric.model.User;
 import org.example.eric.repository.TaskRepository;
@@ -13,8 +14,11 @@ import java.util.List;
 @Service
 public class TaskService {
 
-    @Autowired
-    TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
+
+    public TaskService(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+    }
 
     public List<Task> findAllByUser(User user) {
         return taskRepository.findAllByUser(user);
@@ -22,9 +26,7 @@ public class TaskService {
 
     public List<Task> getAllByTodaysDate(User user) {
         LocalDate date = LocalDate.now();
-        List<Task> tasks = taskRepository.findAllByUserAndDueDate(user, date);
-        System.out.println("Tasks:" + tasks.toString());
-        return tasks;
+        return taskRepository.findAllByUserAndDueDate(user, date);
     }
 
     public List<Task> getUpcomingTasks(User user) {
@@ -35,9 +37,16 @@ public class TaskService {
         return taskRepository.findAllCompletedTasks(user);
     }
 
-    public Task save(Task task, User user) {
-        task.setUser(user);
-        return taskRepository.save(task);
+    public Task save(TaskDTO task, User user) {
+        Task newTask = new Task();
+
+        newTask.setTitle(task.getTitle());
+        newTask.setDescription(task.getDescription());
+        newTask.setDueDate(task.getDueDate());
+        newTask.setCompleted(task.isCompleted());
+        newTask.setUser(user);
+
+        return taskRepository.save(newTask);
     }
 
     public Task findByTaskId(Long id, Long userId) throws AccessDeniedException {

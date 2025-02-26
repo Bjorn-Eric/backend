@@ -2,6 +2,7 @@ package org.example.eric.controller.task;
 
 import jakarta.validation.Valid;
 import org.apache.juli.logging.Log;
+import org.example.eric.dto.TaskDTO;
 import org.example.eric.model.Task;
 import org.example.eric.model.User;
 import org.example.eric.service.TaskService;
@@ -22,17 +23,15 @@ public class TaskController {
 
     @GetMapping("/task/new")
     public String renderNewTaskForm(Model model) {
-        model.addAttribute("task", new Task());
+        model.addAttribute("task", new TaskDTO());
         return "new_task";
     }
 
     @PostMapping("/task/new")
-    public String createNewTask(@Valid @ModelAttribute("task") Task task, BindingResult bindingResult, Model model, @AuthenticationPrincipal User user) {
+    public String createNewTask(@Valid @ModelAttribute("task") TaskDTO task, BindingResult bindingResult, @AuthenticationPrincipal User user) {
         if (bindingResult.hasErrors()) {
             return "new_task";
         }
-
-        System.out.println("DEBUG: " + task.toString());
 
         taskService.save(task, user);
         return "redirect:/tasks";
@@ -41,7 +40,6 @@ public class TaskController {
     @GetMapping("/task/{id}")
     public String renderTaskDetailsPage(Model model, @AuthenticationPrincipal User user, @PathVariable Long id) throws AccessDeniedException {
         Task task = taskService.findByTaskId(id, user.getId());
-        System.out.println("DEBUG_TASK_DETAILS: " + task.toString());
         model.addAttribute("task", task);
         return "task_details";
     }
@@ -53,8 +51,6 @@ public class TaskController {
             return "task_details";
         }
 
-        System.out.println("DEBUG_TASK_UPDATE: " + task.toString());
-
         task.setUser(user);
         taskService.updateTaskById(task, user);
 
@@ -64,7 +60,6 @@ public class TaskController {
 
     @PostMapping("/task/delete")
     public String deleteTaskWithId(@RequestParam Long taskId, @AuthenticationPrincipal User user) throws AccessDeniedException {
-        System.out.println("DEBUG_TASK_DELETE");
         taskService.deleteTask(taskId, user);
 
         return "redirect:/tasks";

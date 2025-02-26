@@ -70,7 +70,7 @@ public class Task {
         return dueDate;
     }
 
-    public void setDueDate(LocalDate dueDate) {   // renamed from 'setdueDate'
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 

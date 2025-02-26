@@ -38,7 +38,6 @@ public class ProfileController {
     public String modifyUserPassword(@Valid @ModelAttribute("passwordForm") ChangePasswordFormDTO passwordFormDTO, BindingResult bindingResult, @AuthenticationPrincipal User user, Model model) {
 
         if (bindingResult.hasErrors()) {
-            System.out.println("Binding errors: " + bindingResult.getAllErrors());
             model.addAttribute("user", user);
             return "profile";
         }

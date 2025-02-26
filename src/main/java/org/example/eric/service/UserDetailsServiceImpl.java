@@ -1,6 +1,7 @@
 package org.example.eric.service;
 
 import jakarta.transaction.Transactional;
+import org.example.eric.dto.UserDTO;
 import org.example.eric.model.User;
 import org.example.eric.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,5 +78,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public int activateUserById(Long userId) throws AccessDeniedException {
         return userRepository.activateById(userId);
+    }
+
+    @Transactional
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void addUser(UserDTO user) throws AccessDeniedException {
+        if(userRepository.findByUsername(user.getUsername()) != null) {
+            throw new AccessDeniedException("Username already exists");
+        }
+
+        User newUser = new User(user.getUsername(), passwordEncoder.encode(user.getPassword()), User.Role.valueOf(user.getRole()));
+        userRepository.save(newUser);
     }
 }

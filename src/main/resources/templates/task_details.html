@@ -166,7 +166,7 @@
                 </tr>
                 <tr>
                     <td>Due Date:</td>
-                    <td><input type="date" th:filed="*{description}"/></td>
+                    <td><input type="date" th:field="*{dueDate}"></td>
                 </tr>
                 <tr>
                     <td>Completed:</td>
@@ -183,6 +183,10 @@
         <button onClick="submitForm()">Save</button>
         <button onclick="confirmDelete()">Delete Task</button>
     </div>
+</div>
+
+<div>
+    <h1 th:text="${task.getDueDate()}"></h1>
 </div>
 
 <script>

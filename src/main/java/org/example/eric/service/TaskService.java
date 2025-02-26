@@ -58,13 +58,22 @@ public class TaskService {
         throw new AccessDeniedException("You are not the owner of this task!");
     }
 
-    public Task updateTaskById(Task task, User user) throws AccessDeniedException {
-        if (user.getId().equals(task.getUser().getId())) {
-            return taskRepository.save(task);
+    public Task updateTaskById(TaskDTO taskDTO, User user) throws AccessDeniedException {
+        Task taskToUpdate = taskRepository.findById(taskDTO.getId())
+                .orElseThrow(() -> new AccessDeniedException("Task not found!"));
+
+        if (taskToUpdate.getUser() == null || !taskToUpdate.getUser().getId().equals(user.getId())) {
+            throw new AccessDeniedException("You are not the owner of this task!");
         }
 
-        throw new AccessDeniedException("You are not the owner of this task!");
+        taskToUpdate.setTitle(taskDTO.getTitle());
+        taskToUpdate.setDescription(taskDTO.getDescription());
+        taskToUpdate.setDueDate(taskDTO.getDueDate());
+        taskToUpdate.setCompleted(taskDTO.isCompleted());
+
+        return taskRepository.save(taskToUpdate);
     }
+
 
     public void deleteTask(Long id, User user) throws AccessDeniedException {
         System.out.println("TASK_SERVICE");

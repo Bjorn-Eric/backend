@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.file.AccessDeniedException;
+import java.util.logging.Logger;
 
 @Controller
 public class TaskController {
@@ -28,8 +29,9 @@ public class TaskController {
     }
 
     @PostMapping("/task/new")
-    public String createNewTask(@Valid @ModelAttribute("task") TaskDTO task, BindingResult bindingResult, @AuthenticationPrincipal User user) {
+    public String createNewTask(@Valid @ModelAttribute("task") TaskDTO task,BindingResult bindingResult, Model model, @AuthenticationPrincipal User user) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("task", task);
             return "new_task";
         }
 
@@ -40,18 +42,20 @@ public class TaskController {
     @GetMapping("/task/{id}")
     public String renderTaskDetailsPage(Model model, @AuthenticationPrincipal User user, @PathVariable Long id) throws AccessDeniedException {
         Task task = taskService.findByTaskId(id, user.getId());
-        model.addAttribute("task", task);
+        TaskDTO taskDTO = new TaskDTO(task.getId(), task.getTitle(), task.getDescription(), task.getDueDate(), task.isCompleted());
+        System.out.println("TASK DTO" + taskDTO.toString());
+        model.addAttribute("task", taskDTO);
+
         return "task_details";
     }
 
     @PostMapping("/task/{id}")
-    public String updateTaskWithId(@Valid Task task, @AuthenticationPrincipal User user, BindingResult bindingResult) throws AccessDeniedException {
+    public String updateTaskWithId(@Valid TaskDTO task, @AuthenticationPrincipal User user, BindingResult bindingResult) throws AccessDeniedException {
 
         if (bindingResult.hasErrors()) {
             return "task_details";
         }
 
-        task.setUser(user);
         taskService.updateTaskById(task, user);
 
         return "redirect:/tasks";

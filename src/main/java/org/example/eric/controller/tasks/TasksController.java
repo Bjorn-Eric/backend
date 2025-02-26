@@ -23,9 +23,4 @@ public class TasksController {
         model.addAttribute("tasks", tasks);
         return "tasks";
     }
-
-//    @GetMapping("/task/{id}")
-//    public String taskDetails(@PathVariable Long id, Model model) {
-//        Optional<Task> = taskService
-//    }
 }

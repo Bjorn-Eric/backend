@@ -7,8 +7,10 @@ import java.time.LocalDate;
 
 public class TaskDTO {
 
+    private Long id;
+
     @NotBlank
-    @Size(min = 1, max = 255, message = "Title must be between 1 and 255 characters long")
+    @Size(min = 5, max = 255, message = "Title must be between 1 and 255 characters long")
     private String title;
 
     @Size(max = 255, message = "Description must be less than 255 characters long")
@@ -23,7 +25,8 @@ public class TaskDTO {
 
     }
 
-    public TaskDTO(String title, String description, LocalDate dueDate, boolean completed) {
+    public TaskDTO(Long id, String title, String description, LocalDate dueDate, boolean completed) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
@@ -60,5 +63,24 @@ public class TaskDTO {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "TaskDTO{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", dueDate=" + dueDate +
+                ", completed=" + completed +
+                '}';
     }
 }

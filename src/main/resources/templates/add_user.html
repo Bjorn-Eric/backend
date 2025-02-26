@@ -22,7 +22,7 @@
             border-radius: 5px;
         }
 
-        input[type='text'], input[type='date'] {
+        input[type='text'], input[type='date'], input[type='password'], select {
             width: 100%;
             box-sizing: border-box;
             padding: 5px;
@@ -123,21 +123,25 @@
     </nav>
 </header>
 <h1 class="title">Add New User</h1>
-<form id="user-form" action="#" th:action="@{/users/add}" th:object="${user}" method="post">
+<form id="user-form" action="#" th:action="@{/users/add}" th:object="${userDTO}" method="POST">
 
     <p>User Name: <input type="text" th:field="*{username}" required/>
     <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error">Username error</p>
 
-    <p>Password: <input type="text" th:field="*{password}"/></p>
+    <p>Password: <input type="password" th:field="*{password}" required/></p>
     <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error">Password Error</p>
 
-    <p>Retype Password: <input type="text" th:field="*{rePassword}"/></p>
+    <p>Retype Password: <input type="password" th:field="*{rePassword}" required/></p>
     <p th:if="${#fields.hasErrors('rePassword')}" th:errors="*{rePassword}" class="error">Password Error</p>
+    <p th:if="${passwordsNotMatch}" class="error">Passwords did not match</p>
 
-<!--    <p>Task Due Date: <input type="date" th:field="*{role}"/></p>-->
-<!--    <p th:if="${#fields.hasErrors('dueDate')}" th:errors="*{dueDate}" class="error">Due Date Error</p>-->
-
-<!--    <p>Completed: <input type="checkbox" th:field="*{completed}"/></p>-->
+    <p>Role:
+        <select th:field="*{role}">
+            <option value="ROLE_USER">User</option>
+            <option value="ROLE_ADMIN">Admin</option>
+        </select>
+    </p>
+    <p th:if="${#fields.hasErrors('role')}" th:errors="*{role}" class="error">Role Error</p>
     <p><input type="submit" value="Submit"/></p>
 </form>
 </body>

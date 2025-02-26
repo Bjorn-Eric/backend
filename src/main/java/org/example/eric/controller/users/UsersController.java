@@ -1,5 +1,6 @@
 package org.example.eric.controller.users;
 
+import jakarta.validation.Valid;
 import org.example.eric.dto.UserDTO;
 import org.example.eric.model.User;
 import org.example.eric.service.UserDetailsServiceImpl;
@@ -8,9 +9,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.nio.file.AccessDeniedException;
 import java.util.Objects;
@@ -31,12 +32,33 @@ public class UsersController {
     @GetMapping("/users/add")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String addUserPage(Model model) {
-            model.addAttribute("user", new UserDTO());
+            model.addAttribute("userDTO", new UserDTO());
             return "add_user";
     }
 
+    @PostMapping("/users/add")
+    public String addUser(@Valid UserDTO userDTO, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("userDTO", userDTO);
+            return "add_user";
+        }
+
+        if (!userDTO.getPassword().equals(userDTO.getRePassword())) {
+            model.addAttribute("passwordsNotMatch", true);
+            return "add_user";
+        }
+
+        try{
+            userDetailsService.addUser(userDTO);
+        } catch (AccessDeniedException e) {
+            return "redirect:/error";
+        }
+
+        return "redirect:/users";
+    }
+
     @PostMapping("/users/delete")
-    public String deleteUser(@AuthenticationPrincipal User user, Model model, @RequestParam Long user_id) {
+    public String deleteUser(Model model, @RequestParam Long user_id) {
         try {
             userDetailsService.deleteUserById(user_id);
         } catch (AccessDeniedException e) {

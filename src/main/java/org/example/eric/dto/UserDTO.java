@@ -7,19 +7,19 @@ import jakarta.validation.constraints.Size;
 public class UserDTO {
 
     @NotBlank(message = "Username is required")
-    @Size(min = 4, max = 255, message = "Username must be between 4 and 255 characters long")
+    @Size(min = 4, max = 255)
     private String username;
 
     @NotBlank(message = "Password is required")
-    @Size(min = 8, max = 255, message = "Password must be between 8 and 255 characters long")
+    @Size(min = 8, max = 255)
     private String password;
 
     @NotBlank(message = "Re-entered password is required")
-    @Size(min = 8, max = 255, message = "Password must be between 8 and 255 characters long")
+    @Size(min = 8, max = 255)
     private String rePassword;
 
     @NotBlank(message = "Role is required")
-    @Pattern(regexp = "ROLE_USER|ROLE_ADMIN", message = "Role must be either ROLE_USER or ROLE_ADMIN")
+    @Pattern(regexp = "ROLE_USER|ROLE_ADMIN")
     private String role;
 
     public UserDTO() {

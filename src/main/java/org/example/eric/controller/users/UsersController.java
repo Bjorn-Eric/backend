@@ -11,22 +11,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.nio.file.AccessDeniedException;
+import java.util.List;
 import java.util.Objects;
 
 @Controller
 public class UsersController {
 
+    private final UserDetailsServiceImpl userDetailsService;
+
     @Autowired
-    UserDetailsServiceImpl userDetailsService;
+    public UsersController(UserDetailsServiceImpl userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @GetMapping("/users")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String renderUsersPage(Model model) {
-            model.addAttribute("users", userDetailsService.getAllUsers());
-            return "users";
+        List<User> users = userDetailsService.getAllUsers();
+        System.out.println("Users: " + users.get(0).toString());
+        model.addAttribute("users", users);
+        return "users";
     }
 
     @GetMapping("/users/add")

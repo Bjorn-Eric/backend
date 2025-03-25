@@ -23,6 +23,22 @@ public class User implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(unique = true)
+    private String apiKey;
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+
     public enum Role {
         ROLE_USER, ROLE_ADMIN
     }
@@ -112,4 +128,16 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private List<Task> tasks;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", active=" + active +
+                ", apiKey=" + apiKey + '\'' +
+                '}';
+    }
 }

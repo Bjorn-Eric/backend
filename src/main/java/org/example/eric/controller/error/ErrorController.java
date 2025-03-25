@@ -10,7 +10,9 @@ public class ErrorController {
 
     @ExceptionHandler(value = Exception.class)
     public String showErrorPage(Model model, Exception e) {
+        System.out.println("===============================");
         System.out.println("Error: " + e.getMessage());
+        System.out.println("===============================");
         model.addAttribute("errorMessage", e.getMessage());
         return "error";
     }

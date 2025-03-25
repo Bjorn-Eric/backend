@@ -14,6 +14,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     List<Task> findAllByUser(User user);
 
+    @Query("SELECT t FROM Task t WHERE t.user = :user AND t.dueDate = :date AND t.completed = false")
     List<Task> findAllByUserAndDueDate(User user, LocalDate date);
 
     @Query("SELECT t from Task t WHERE t.user = :user AND t.dueDate > CURRENT_TIMESTAMP AND t.completed = false")
@@ -24,4 +25,8 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     @Query("SELECT t FROM Task t WHERE t.user = :user AND t.completed = true")
     List<Task> findAllCompletedTasks(User user);
+
+
+    @Query("SELECT t FROM Task t WHERE t.user.apiKey = :apiKey")
+    List<Task> findAllByApiKey(String apiKey);
 }

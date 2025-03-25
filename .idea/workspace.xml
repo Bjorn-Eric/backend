@@ -5,22 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a29f667-300a-49b8-9ae7-3d4108f3ac03" name="Changes" comment="some changes">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/config/ApiKeyAuthFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/config/AppConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/task/TaskRestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/tasks/TasksRestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/PublicController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/error/ErrorController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/error/ErrorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/error/ErrorController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/login/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/login/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/task/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/task/TaskController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/tasks/TasksController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/tasks/TasksController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/login/dto/LoginFormDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/profile/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/profile/ProfileController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/users/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/controller/users/UsersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/dto/TaskDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/dto/TaskDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/dto/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/service/TaskService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/repository/TaskRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/repository/TaskRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/repository/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/eric/service/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/eric/service/UserDetailsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/add_user.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/add_user.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/error.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/task_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/task_details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/eric/controller/error/tests/ErrorControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/eric/controller/error/tests/ErrorControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/users.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/users.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +86,10 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -119,7 +124,15 @@
       <workItem from="1740315280478" duration="2375000" />
       <workItem from="1740470288251" duration="17000" />
       <workItem from="1740509236596" duration="6237000" />
-      <workItem from="1740589955570" duration="14581000" />
+      <workItem from="1740589955570" duration="15098000" />
+      <workItem from="1741081168389" duration="8000" />
+      <workItem from="1741809297403" duration="465000" />
+      <workItem from="1741809768933" duration="567000" />
+      <workItem from="1741810344083" duration="729000" />
+      <workItem from="1741948356229" duration="822000" />
+      <workItem from="1742305290153" duration="12000" />
+      <workItem from="1742664281280" duration="3311000" />
+      <workItem from="1742924387822" duration="6459000" />
     </task>
     <task id="LOCAL-00001" summary="some changes">
       <option name="closed" value="true" />
@@ -137,7 +150,23 @@
       <option name="project" value="LOCAL" />
       <updated>1740590047703</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="some changes">
+      <option name="closed" value="true" />
+      <created>1740605422408</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1740605422408</updated>
+    </task>
+    <task id="LOCAL-00004" summary="some changes">
+      <option name="closed" value="true" />
+      <created>1740605767767</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1740605767767</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

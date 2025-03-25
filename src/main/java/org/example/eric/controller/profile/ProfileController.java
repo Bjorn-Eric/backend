@@ -16,19 +16,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.nio.file.AccessDeniedException;
-import java.util.Objects;
 
 @Controller
 public class ProfileController {
 
-    @Autowired
-    UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    public ProfileController(UserDetailsServiceImpl userDetailsService, PasswordEncoder passwordEncoder) {
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
+    }
+
 
     @GetMapping("/profile")
     public String renderProfilePage(@AuthenticationPrincipal User user, Model model) {
+        model.addAttribute("user", user);
+        model.addAttribute("passwordForm", new ChangePasswordFormDTO());
+        return "profile";
+    }
+
+
+    @GetMapping("/profile/{id}")
+    public String renderProfilePage(@PathVariable Long id, Model model) throws AccessDeniedException {
+        User user = userDetailsService.getUserDetailsById(id);
         model.addAttribute("user", user);
         model.addAttribute("passwordForm", new ChangePasswordFormDTO());
         return "profile";

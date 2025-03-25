@@ -157,9 +157,9 @@
         <td th:text="${user.username}"></td>
         <td th:text="${user.active ? 'Active' : 'Inactive'}"></td>
         <td>
-            <!-- <a th:href="@{'/profile/' + ${user.id}}">
+            <a th:href="@{'/profile/' + ${user.id}}">
                 <button class="action-button">Edit</button>
-            </a> -->
+            </a>
             <form th:if="${user.active}" th:action="@{users/deactivate}" method="post">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 <input type="hidden" name="user_id" th:value="${user.id}"/>

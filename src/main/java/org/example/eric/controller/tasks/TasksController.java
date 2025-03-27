@@ -1,5 +1,6 @@
 package org.example.eric.controller.tasks;
 
+import org.example.eric.dto.TaskDTO;
 import org.example.eric.model.Task;
 import org.example.eric.model.User;
 import org.example.eric.service.TaskService;
@@ -19,7 +20,7 @@ public class TasksController {
 
     @GetMapping("/tasks")
     public String renderUserTasks(Model model, @AuthenticationPrincipal User user) {
-        List<Task> tasks = taskService.findAllByUser(user);
+        List<TaskDTO> tasks = taskService.findAllByUser(user);
         model.addAttribute("tasks", tasks);
         return "tasks";
     }

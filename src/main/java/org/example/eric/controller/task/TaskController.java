@@ -35,7 +35,7 @@ public class TaskController {
             return "new_task";
         }
 
-        taskService.save(task, user);
+        taskService.createTask(task, user);
         return "redirect:/tasks";
     }
 
@@ -56,7 +56,7 @@ public class TaskController {
             return "task_details";
         }
 
-        taskService.updateTaskById(task, user);
+        taskService.updateTaskById(task, user.getId());
 
         return "redirect:/tasks";
 

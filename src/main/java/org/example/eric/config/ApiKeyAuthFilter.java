@@ -27,17 +27,23 @@ public class ApiKeyAuthFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-        String apiKey = request.getHeader("API-Key");
+        String apiKey = request.getHeader("X-Api-Key");
 
-        if (apiKey != null && !apiKey.isEmpty()) {
+
+        if (apiKey == null || apiKey.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "API key missing");
+            return;
+        }
+
             Optional<User> optionalUser = userDetailsService.getUserByApiKey(apiKey);
+        if(optionalUser.isEmpty()){
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "API key invalid");
+            return;
+        }
 
-            if(optionalUser.isPresent()){
                 User user = optionalUser.get();
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(auth);
-            }
-        }
 
         filterChain.doFilter(request, response);
     }

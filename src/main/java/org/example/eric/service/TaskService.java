@@ -4,6 +4,7 @@ import org.example.eric.dto.TaskDTO;
 import org.example.eric.model.Task;
 import org.example.eric.model.User;
 import org.example.eric.repository.TaskRepository;
+import org.example.eric.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,32 +21,29 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public List<Task> findAllByUser(User user) {
-        return taskRepository.findAllByUser(user);
+    public List<TaskDTO> findAllByUser(User user) {
+        List<Task> tasks = taskRepository.findAllByUser(user);
+        return Utils.convertTaskListToTaskDTOList(tasks);
     }
 
-    public List<Task> getAllByTodaysDate(User user) {
+    public List<TaskDTO> getAllByTodaysDate(User user) {
         LocalDate date = LocalDate.now();
-        return taskRepository.findAllByUserAndDueDate(user, date);
+        List<Task> tasks = taskRepository.findAllByUserAndDueDate(user, date);
+        return Utils.convertTaskListToTaskDTOList(tasks);
     }
 
-    public List<Task> getUpcomingTasks(User user) {
-        return taskRepository.findAllUpcomingTasks(user);
+    public List<TaskDTO> getUpcomingTasks(User user) {
+        List<Task> tasks = taskRepository.findAllUpcomingTasks(user);
+        return Utils.convertTaskListToTaskDTOList(tasks);
     }
 
-    public List<Task> getCompletedTasks(User user) {
-        return taskRepository.findAllCompletedTasks(user);
+    public List<TaskDTO> getCompletedTasks(User user) {
+        List<Task> tasks = taskRepository.findAllCompletedTasks(user);
+        return Utils.convertTaskListToTaskDTOList(tasks);
     }
 
-    public Task save(TaskDTO task, User user) {
-        Task newTask = new Task();
-
-        newTask.setTitle(task.getTitle());
-        newTask.setDescription(task.getDescription());
-        newTask.setDueDate(task.getDueDate());
-        newTask.setCompleted(task.isCompleted());
-        newTask.setUser(user);
-
+    public Task createTask(TaskDTO taskDTO, User user) {
+        Task newTask = new Task(taskDTO, user);
         return taskRepository.save(newTask);
     }
 
@@ -58,11 +56,11 @@ public class TaskService {
         throw new AccessDeniedException("You are not the owner of this task!");
     }
 
-    public Task updateTaskById(TaskDTO taskDTO, User user) throws AccessDeniedException {
+    public Task updateTaskById(TaskDTO taskDTO, Long userId) throws AccessDeniedException {
         Task taskToUpdate = taskRepository.findById(taskDTO.getId())
                 .orElseThrow(() -> new AccessDeniedException("Task not found!"));
 
-        if (taskToUpdate.getUser() == null || !taskToUpdate.getUser().getId().equals(user.getId())) {
+        if (!taskToUpdate.getUser().getId().equals(userId)) {
             throw new AccessDeniedException("You are not the owner of this task!");
         }
 

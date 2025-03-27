@@ -2,6 +2,7 @@ package org.example.eric.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import org.example.eric.model.Task;
 
 import java.time.LocalDate;
 
@@ -31,6 +32,14 @@ public class TaskDTO {
         this.description = description;
         this.dueDate = dueDate;
         this.completed = completed;
+    }
+
+    public TaskDTO(Task task) {
+        this.id = task.getId();
+        this.title = task.getTitle();
+        this.description = task.getDescription();
+        this.dueDate = task.getDueDate();
+        this.completed = task.isCompleted();
     }
 
     public String getTitle() {

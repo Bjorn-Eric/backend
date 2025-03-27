@@ -3,6 +3,7 @@ package org.example.eric.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import org.example.eric.dto.TaskDTO;
 
 import java.time.LocalDate;
 
@@ -31,6 +32,15 @@ public class Task {
 
     public Task() {
 
+    }
+
+    public Task(TaskDTO taskDTO, User user) {
+        this.id = taskDTO.getId();
+        this.title = taskDTO.getTitle();
+        this.description = taskDTO.getDescription();
+        this.completed = taskDTO.isCompleted();
+        this.dueDate = taskDTO.getDueDate();
+        this.user = user;
     }
 
     public Long getId() {

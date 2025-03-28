@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -94,6 +95,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Transactional
     public Optional<User> getUserByApiKey(String apiKey) {
-        return userRepository.findByApiKey(apiKey);
+        return userRepository.findAll().stream().filter(user -> passwordEncoder.matches(apiKey, user.getApiKey())).findFirst();
     }
+
+    @Transactional
+    public String changeApiKey(User user) {
+        String apiKey = UUID.randomUUID().toString();
+        String hashedApiKey = passwordEncoder.encode(apiKey);
+        user.setApiKey(hashedApiKey);
+        userRepository.save(user);
+        return apiKey;
+    }
+
 }

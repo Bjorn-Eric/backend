@@ -1,7 +1,7 @@
 package org.example.eric.controller.profile;
 
 import jakarta.validation.Valid;
-import org.example.eric.controller.profile.dto.ChangePasswordFormDTO;
+import org.example.eric.dto.ChangePasswordFormDTO;
 import org.example.eric.model.User;
 import org.example.eric.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.nio.file.AccessDeniedException;
 
@@ -32,7 +33,7 @@ public class ProfileController {
 
     @GetMapping("/profile")
     public String renderProfilePage(@AuthenticationPrincipal User user, Model model) {
-        model.addAttribute("user", user);
+        model.addAttribute("username", user.getUsername());
         model.addAttribute("passwordForm", new ChangePasswordFormDTO());
         return "profile";
     }
@@ -41,12 +42,12 @@ public class ProfileController {
     @GetMapping("/profile/{id}")
     public String renderProfilePage(@PathVariable Long id, Model model) throws AccessDeniedException {
         User user = userDetailsService.getUserDetailsById(id);
-        model.addAttribute("user", user);
+        model.addAttribute("username", user.getUsername());
         model.addAttribute("passwordForm", new ChangePasswordFormDTO());
         return "profile";
     }
 
-    @PostMapping("/profile")
+    @PostMapping("/profile/new-password")
     public String modifyUserPassword(@Valid @ModelAttribute("passwordForm") ChangePasswordFormDTO passwordFormDTO, BindingResult bindingResult, @AuthenticationPrincipal User user, Model model) {
 
         if (bindingResult.hasErrors()) {
@@ -68,5 +69,13 @@ public class ProfileController {
         model.addAttribute("user", user);
         model.addAttribute("successMessage", "Password updated successfully!");
         return "profile";
+    }
+
+    @PostMapping("/profile/api-key")
+    public String modifyUserApiKey(@AuthenticationPrincipal User user, RedirectAttributes redirectAttributes) {
+        String rawApiKey = userDetailsService.changeApiKey(user);
+        redirectAttributes.addFlashAttribute("user", user);
+        redirectAttributes.addFlashAttribute("generatedApiKey", rawApiKey);
+        return "redirect:/profile";
     }
 }

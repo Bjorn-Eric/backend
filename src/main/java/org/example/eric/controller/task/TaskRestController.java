@@ -6,6 +6,7 @@ import org.example.eric.model.Task;
 import org.example.eric.model.User;
 import org.example.eric.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,11 +38,18 @@ public class TaskRestController {
 
     @PostMapping("/new")
     public TaskDTO createTask(@AuthenticationPrincipal User user, @Valid @RequestBody TaskDTO taskDTO) {
-        System.out.println("=====================================");
-        System.out.println("TaskRestController.createTask");
-        System.out.println("taskDTO = " + taskDTO);
-        System.out.println("=====================================");
         Task task = taskService.createTask(taskDTO, user);
         return new TaskDTO(task);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTaskById(@PathVariable Long id, @AuthenticationPrincipal User user) throws AccessDeniedException {
+        taskService.deleteTask(id, user);
+        return ResponseEntity.ok().header("Task deleted").build();
+    }
+
+    @RequestMapping(value = {"/", ""})
+    public ResponseEntity<String> handleMissingId() {
+        return ResponseEntity.badRequest().body("Missing task ID");
     }
 }

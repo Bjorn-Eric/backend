@@ -74,9 +74,12 @@ public class TaskService {
 
 
     public void deleteTask(Long id, User user) throws AccessDeniedException {
-        System.out.println("TASK_SERVICE");
         Task task = taskRepository.findById(id).orElse(null);
-        if (task != null && task.getUser().getId().equals(user.getId())) {
+        if(task == null) {
+            throw new AccessDeniedException("Task not found!");
+        }
+
+        if (task.getUser().getId().equals(user.getId())) {
             taskRepository.deleteById(id);
         } else {
             throw new AccessDeniedException("You are not the owner of this task!");

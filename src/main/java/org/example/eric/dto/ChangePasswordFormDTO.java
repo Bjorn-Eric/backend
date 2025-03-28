@@ -1,4 +1,4 @@
-package org.example.eric.controller.profile.dto;
+package org.example.eric.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

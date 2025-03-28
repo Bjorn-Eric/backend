@@ -30,7 +30,6 @@ public class UsersController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String renderUsersPage(Model model) {
         List<User> users = userDetailsService.getAllUsers();
-        System.out.println("Users: " + users.get(0).toString());
         model.addAttribute("users", users);
         return "users";
     }
@@ -78,16 +77,12 @@ public class UsersController {
     @PostMapping("/users/deactivate")
     public String deactivateUser(@AuthenticationPrincipal User user, @RequestParam Long user_id) {
         try {
-            System.out.println("user_id: " + user_id);
-            int ans = userDetailsService.deactivateUserById(user, user_id);
-
-            System.out.println("Deactivated ans: " + ans);
-
-            if (ans == 1 && Objects.equals(user.getId(), user_id)) {
+            int result = userDetailsService.deactivateUserById(user, user_id);
+            if (result == 1 && Objects.equals(user.getId(), user_id)) {
                 return "redirect:/";
             }
 
-            if (ans == 1) {
+            if (result == 1) {
                 return "redirect:/users";
             }
 

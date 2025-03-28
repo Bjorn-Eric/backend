@@ -8,18 +8,10 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @ControllerAdvice
 public class ErrorController {
 
-    @ExceptionHandler(value = Exception.class)
-    public String showErrorPage(Model model, Exception e) {
-        System.out.println("===============================");
-        System.out.println("Error: " + e.getMessage());
-        System.out.println("===============================");
-        model.addAttribute("errorMessage", e.getMessage());
-        return "error";
-    }
-
     @ExceptionHandler(NoHandlerFoundException.class)
     public String handleNoHandlerFoundException(Model model, Exception e) {
-        model.addAttribute("errorMessage", "The page doesn't exist");
+        System.out.println("NoHandlerFoundException");
+        model.addAttribute("random", "The page doesn't exist");
         return "error";
     }
 }

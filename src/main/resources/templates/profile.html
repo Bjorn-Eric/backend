@@ -6,7 +6,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #F2F2F2; /* Existing light background */
+            background-color: #F2F2F2;
             margin: 0;
             padding: 0;
             line-height: 1.6;
@@ -63,21 +63,21 @@
         }
 
         .main-nav {
-            display: flex; /* Activate Flexbox layout */
-            justify-content: space-between; /* Distribute space between elements */
-            align-items: center; /* Vertically center the items */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             color: #fff;
         }
 
         .main-nav ul {
-            list-style: none; /* Remove default bullet points */
+            list-style: none;
             margin: 0;
             padding: 0;
         }
 
         .main-nav li {
-            display: inline; /* Place links side-by-side */
-            margin: 0 10px; /* Add spacing between links */
+            display: inline;
+            margin: 0 10px;
         }
 
         .main-nav a {
@@ -132,9 +132,9 @@
 <div class="container">
     <h1>Your Profile</h1>
 
-    <form method="POST" th:object="${passwordForm}" th:action="@{/profile}">
+    <form method="POST" th:object="${passwordForm}" th:action="@{/profile/new-password}">
         <div>
-            <h3 th:text="${user.getUsername()}"></h3>
+            <h3 th:text="${username}"></h3>
         </div>
         <div>
             <label for="current-password">Current Password</label>
@@ -159,6 +159,26 @@
     <div th:if="${successMessage}">
         <p th:text="${successMessage}"></p>
     </div>
+</div>
+<div class="container">
+    <form method="POST" th:action="@{/profile/api-key}">
+        <div>
+            <h1>Your API Key</h1>
+        </div>
+
+        <div th:if="${generatedApiKey}">
+            <label for="api-key">New API Key (save this now — it won't be shown again)</label>
+            <input type="text" id="api-key" name="apiKey" th:value="${generatedApiKey}" readonly>
+        </div>
+
+        <div th:if="${generatedApiKey == null}">
+            <p>You don't currently have access to your API key. Generate a new one if needed.</p>
+        </div>
+
+        <div>
+            <button type="submit">Generate New API Key</button>
+        </div>
+    </form>
 </div>
 </body>
 </html>

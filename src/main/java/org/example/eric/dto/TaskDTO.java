@@ -1,5 +1,6 @@
 package org.example.eric.dto;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.example.eric.model.Task;

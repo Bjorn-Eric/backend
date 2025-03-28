@@ -29,7 +29,6 @@ public class ApiKeyAuthFilter extends OncePerRequestFilter {
 
         String apiKey = request.getHeader("X-Api-Key");
 
-
         if (apiKey == null || apiKey.isEmpty()) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "API key missing");
             return;
